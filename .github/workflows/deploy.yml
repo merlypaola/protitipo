@@ -33,8 +33,6 @@ jobs:
 
       - name: Desplegar a producción
         run: |
-          rsync -av --delete \
-            --no-owner \
-            --no-group \
+          rsync -rv --delete \
             dist/ \
             /var/www/didactikapp.grandlife-roleplay.com/public_html/
