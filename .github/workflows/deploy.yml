@@ -1,0 +1,38 @@
+name: Deploy DidactikApp
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: didactikapp-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on:
+      - self-hosted
+      - Linux
+      - X64
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar aplicación
+        run: npm run build
+
+      - name: Verificar build
+        run: |
+          test -f dist/index.html
+          ls -lah dist
+
+      - name: Desplegar
+        run: |
+          rsync -av --delete \
+            dist/ \
+            /var/www/didactikapp.grandlife-roleplay.com/public_html/
