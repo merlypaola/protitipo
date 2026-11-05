@@ -327,7 +327,7 @@ const LoginForm = ({ navigateBack }) => {
               🔑 ¿Olvidaste tu contraseña?
             </a>
             <div className="modern-register-prompt">
-              <span>¿No tienes cuenta2?</span>
+              <span>¿No tienes cuenta23?</span>
               <a href="/register" className="modern-form-link primary">
                 🚀 Regístrate aquí
               </a>
