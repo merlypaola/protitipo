@@ -28,8 +28,9 @@ jobs:
 
       - name: Verificar build
         run: |
+          echo "Contenido generado:"
+          find dist -maxdepth 3 -type f -print
           test -f dist/index.html
-          ls -lah dist
 
       - name: Desplegar a producción
         run: |
