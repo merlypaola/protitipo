@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+﻿import React, { useState, useEffect } from "react";
+import { motion as Motion } from "framer-motion";
 import { supabase } from "./services/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import "./FormStyles.css";
@@ -52,7 +52,7 @@ const LoginForm = ({ navigateBack }) => {
     setError("");
 
     try {
-      console.log("🔐 Iniciando login para:", email);
+      console.log("🔑 Iniciando login para:", email);
 
       // 1. Login con Supabase Auth
       const { data: loginData, error: loginError } =
@@ -63,7 +63,19 @@ const LoginForm = ({ navigateBack }) => {
 
       if (loginError) {
         console.error("❌ Error de autenticación:", loginError);
-        throw new Error("Credenciales incorrectas");
+
+        const isConnectionError =
+          loginError.name === "AuthRetryableFetchError" ||
+          loginError.message?.toLowerCase().includes("failed to fetch") ||
+          loginError.message?.toLowerCase().includes("networkerror");
+
+        if (isConnectionError) {
+          throw new Error(
+            "No se pudo conectar con Supabase. Comprueba la URL de VITE_SUPABASE_URL y que el proyecto de Supabase exista.",
+          );
+        }
+
+        throw new Error("Correo o contraseña incorrectos");
       }
 
       if (!loginData.user) {
@@ -71,12 +83,12 @@ const LoginForm = ({ navigateBack }) => {
       }
 
       console.log("✅ Usuario autenticado:", loginData.user.email);
-      console.log("🆔 Auth ID:", loginData.user.id);
+      console.log("🔑 Auth ID:", loginData.user.id);
 
-      // 2. Esperar un poco más para asegurar sincronización
+      // 2. Esperar un poco más para asegurar sincronizaciÃ³n
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // 3. Intentar múltiples veces buscar el usuario (con retry)
+      // 3. Intentar mÃºltiples veces buscar el usuario (con retry)
       let userData = null;
       let attempts = 0;
       const maxAttempts = 5;
@@ -84,7 +96,7 @@ const LoginForm = ({ navigateBack }) => {
       while (!userData && attempts < maxAttempts) {
         attempts++;
         console.log(
-          `🔍 Intento ${attempts} de ${maxAttempts} buscando usuario...`,
+          `🔄 Intento ${attempts} de ${maxAttempts} buscando usuario...`,
         );
 
         const { data, error: roleError } = await supabase
@@ -191,14 +203,14 @@ const LoginForm = ({ navigateBack }) => {
     <div className="modern-form-container">
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
 
-      <motion.div
+      <Motion.div
         className="modern-form-card"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="modern-form-header">
-          <motion.button
+          <Motion.button
             type="button"
             className="modern-back-button"
             onClick={navigateBack}
@@ -215,25 +227,25 @@ const LoginForm = ({ navigateBack }) => {
                 strokeLinejoin="round"
               />
             </svg>
-          </motion.button>
+          </Motion.button>
 
-          <motion.h2
+          <Motion.h2
             className="modern-form-title"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
             Iniciar Sesión
-          </motion.h2>
+          </Motion.h2>
         </div>
 
-        <motion.form
+        <Motion.form
           onSubmit={handleLogin}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          <motion.div
+          <Motion.div
             className="modern-input-group"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -249,12 +261,12 @@ const LoginForm = ({ navigateBack }) => {
               required
             />
             <label htmlFor="email" className="modern-floating-label">
-              📧 Correo electrónico
+              🔑 Correo electrÃ³nico
             </label>
             <div className="modern-input-border"></div>
-          </motion.div>
+          </Motion.div>
 
-          <motion.div
+          <Motion.div
             className="modern-input-group"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -270,20 +282,20 @@ const LoginForm = ({ navigateBack }) => {
               required
             />
             <label htmlFor="password" className="modern-floating-label">
-              🔒 Contraseña
+              🔒 ContraseÃ±a
             </label>
-            <motion.button
+            <Motion.button
               type="button"
               className="modern-password-toggle"
               onClick={togglePasswordVisibility}
             >
-              {showPassword ? "👁️" : "👁️‍🗨️"}
-            </motion.button>
+              {showPassword ? "🙈" : "👁️‍🗨️"}
+            </Motion.button>
             <div className="modern-input-border"></div>
-          </motion.div>
+          </Motion.div>
 
           {error && (
-            <motion.div
+            <Motion.div
               className="modern-error-message"
               initial={{ opacity: 0, y: -10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -291,10 +303,10 @@ const LoginForm = ({ navigateBack }) => {
             >
               <span className="error-icon">⚠️</span>
               <span>{error}</span>
-            </motion.div>
+            </Motion.div>
           )}
 
-          <motion.button
+          <Motion.button
             type="submit"
             disabled={loading}
             className={`modern-btn-submit ${loading ? "loading" : ""}`}
@@ -315,9 +327,9 @@ const LoginForm = ({ navigateBack }) => {
                 <div className="btn-shine"></div>
               </>
             )}
-          </motion.button>
+          </Motion.button>
 
-          <motion.div
+          <Motion.div
             className="modern-form-links"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -332,9 +344,9 @@ const LoginForm = ({ navigateBack }) => {
                 🚀 Regístrate aquí
               </a>
             </div>
-          </motion.div>
-        </motion.form>
-      </motion.div>
+          </Motion.div>
+        </Motion.form>
+      </Motion.div>
     </div>
   );
 };
