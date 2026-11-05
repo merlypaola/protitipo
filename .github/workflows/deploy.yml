@@ -23,7 +23,7 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Compilar aplicación
+      - name: Compilar proyecto
         run: npm run build
 
       - name: Verificar build
@@ -31,7 +31,7 @@ jobs:
           test -f dist/index.html
           ls -lah dist
 
-      - name: Desplegar
+      - name: Desplegar a producción
         run: |
           rsync -av --delete \
             dist/ \
