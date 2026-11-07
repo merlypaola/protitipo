@@ -85,10 +85,10 @@ const LoginForm = ({ navigateBack }) => {
       console.log("✅ Usuario autenticado:", loginData.user.email);
       console.log("🔑 Auth ID:", loginData.user.id);
 
-      // 2. Esperar un poco más para asegurar sincronizaciÃ³n
+      // 2. Esperar un poco más para asegurar sincronización
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // 3. Intentar mÃºltiples veces buscar el usuario (con retry)
+      // 3. Intentar múltiples veces buscar el usuario (con retry)
       let userData = null;
       let attempts = 0;
       const maxAttempts = 5;
@@ -261,7 +261,7 @@ const LoginForm = ({ navigateBack }) => {
               required
             />
             <label htmlFor="email" className="modern-floating-label">
-              🔑 Correo electrÃ³nico
+              🔑 Correo electrónico
             </label>
             <div className="modern-input-border"></div>
           </Motion.div>
@@ -282,7 +282,7 @@ const LoginForm = ({ navigateBack }) => {
               required
             />
             <label htmlFor="password" className="modern-floating-label">
-              🔒 ContraseÃ±a
+              🔒 Contraseña
             </label>
             <Motion.button
               type="button"
