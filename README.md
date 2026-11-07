@@ -143,8 +143,8 @@ Crear un archivo llamado:
 Agregar la siguiente configuración:
 
 ```env
-VITE_SUPABASE_URL=https://ebrilatmfufeqmndemag.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVicmlsYXRtZnVmZXFtbmRlbWFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MjcwODAsImV4cCI6MjA3MjUwMzA4MH0.-sHj7O2rL69EpvB2AY-kh8U__jOPy6Ip-MDTKFq-H7Y
+VITE_SUPABASE_URL=https://supabase.didactikapp.grandlife-roleplay.com
+VITE_SUPABASE_PUBLISHABLE_KEY=TU_PUBLISHABLE_KEY
 ```
 
 ### 5. Ejecutar el proyecto

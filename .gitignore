@@ -22,6 +22,7 @@ coverage
 .env.test.local
 .env.production.local
 .env.*
+!.env.example
 
 # Archivos locales
 *.local

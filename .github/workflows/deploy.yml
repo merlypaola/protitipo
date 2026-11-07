@@ -25,13 +25,13 @@ jobs:
       - name: Verificar variables Supabase
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
         run: |
           test -n "$VITE_SUPABASE_URL" || { echo "VITE_SUPABASE_URL vacía"; exit 1; }
-          test -n "$VITE_SUPABASE_ANON_KEY" || { echo "VITE_SUPABASE_ANON_KEY vacía"; exit 1; }
+          test -n "$VITE_SUPABASE_PUBLISHABLE_KEY" || { echo "VITE_SUPABASE_PUBLISHABLE_KEY vacía"; exit 1; }
 
           echo "Supabase URL configurada"
-          echo "Supabase anon key configurada"
+          echo "Supabase publishable key configurada"
       - name: Compilar proyecto
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}

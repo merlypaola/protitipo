@@ -7,9 +7,7 @@ const supabaseKey =
   import.meta.env.VITE_SUPABASE_ANON_KEY
 
 if (!supabaseUrl) {
-  throw new Error(
-    'VITE_SUPABASE_URL no está definida.'
-  )
+  throw new Error('VITE_SUPABASE_URL no está definida.')
 }
 
 if (!supabaseKey) {
@@ -18,13 +16,4 @@ if (!supabaseKey) {
   )
 }
 
-console.log('✅ Supabase configurado:', {
-  url: supabaseUrl,
-  keyConfigured: true,
-  mode: import.meta.env.MODE,
-})
-
-export const supabase = createClient(
-  supabaseUrl,
-  supabaseKey
-)
+export const supabase = createClient(supabaseUrl, supabaseKey)
